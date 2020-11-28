@@ -1,1 +1,1 @@
-# FSHA_on_SplitNN
+# Unleashing the Tiger: Inference Attacks on Split Learning 🐯⚡️
