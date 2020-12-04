@@ -49,22 +49,6 @@ def D0(input_shape):
     x = tf.keras.layers.Dense(1)(x)
     return tf.keras.Model(xin, x)
 
-
-# def D0(input_shape):
-#     xin = tf.keras.layers.Input(input_shape)
-#     x = ResBlock(xin, 256)
-#     x = ResBlock(x, 256)
-#     x = ResBlock(x, 256)
-#     x = ResBlock(x, 256)
-#     x = ResBlock(x, 256)
-#     x = ResBlock(x, 256)
-#     x = ResBlock(x, 256)
-#     x = tf.keras.layers.Conv2D(256, 3, 2, padding='same')(x)
-#     x = tf.keras.layers.Flatten()(x)
-#     #x = tf.keras.layers.Dense(100, activation='relu')(x)
-#     x = tf.keras.layers.Dense(1)(x)
-#     return tf.keras.Model(xin, x)
-
 def C0(input_shape=None, channels=None):
     xin = tf.keras.layers.Input(input_shape)
     x = tf.keras.layers.Flatten()(xin)
