@@ -3,7 +3,7 @@ We investigate the security of **split learning**---a novel collaborative machin
 
 ## Code:
 
-This repository contains all the code needed to run the **Feature-space hijacking attack** and its variations.The implementation is based on **TensorFlow2**.
+This repository contains all the code needed to run the **Feature-space hijacking attack** and its variations. The implementation is based on **TensorFlow2**.
 
 In particular:
 
