@@ -97,13 +97,11 @@ class FSHA:
             adv_public_logits = self.D(z_public)
             if self.hparams['WGAN']:
                 loss_discr_true = tf.reduce_mean( tf.nn.sigmoid(adv_public_logits) )
-                # alice is false
                 loss_discr_fake = -tf.reduce_mean( tf.nn.sigmoid(adv_private_logits) )
                 # discriminator's loss
                 D_loss = loss_discr_true + loss_discr_fake
             else:
                 loss_discr_true = tf.reduce_mean(tf.keras.losses.binary_crossentropy(tf.ones_like(adv_public_logits), adv_public_logits, from_logits=True))
-                # alice is false
                 loss_discr_fake = tf.reduce_mean(tf.keras.losses.binary_crossentropy(tf.zeros_like(adv_private_logits), adv_private_logits, from_logits=True))
                 # discriminator's loss
                 D_loss = (loss_discr_true + loss_discr_fake) / 2
@@ -115,13 +113,13 @@ class FSHA:
                 D_loss += D_gradient_penalty * w
 
             ##################################################################
-            ## attack verification #####################
+            ## attack validation #####################
             loss_c_verification = distance_data(x_private, rec_x_private)
             ############################################
             ##################################################################
 
 
-        # train attacker's decoder on public data
+        # train client's network 
         var = self.f.trainable_variables
         gradients = tape.gradient(f_loss, var)
         self.optimizer0.apply_gradients(zip(gradients, var))
@@ -131,7 +129,7 @@ class FSHA:
         gradients = tape.gradient(tilde_f_loss, var)
         self.optimizer1.apply_gradients(zip(gradients, var))
 
-        # desc_train
+        # train discriminator
         var = self.D.trainable_variables
         gradients = tape.gradient(D_loss, var)
         self.optimizer2.apply_gradients(zip(gradients, var))
@@ -245,13 +243,11 @@ class FSHA_binary_property(FSHA):
             adv_public_logits = self.D(z_public)
             if self.hparams['WGAN']:
                 loss_discr_true = tf.reduce_mean( tf.nn.sigmoid(adv_public_logits) )
-                # alice is false
                 loss_discr_fake = -tf.reduce_mean( tf.nn.sigmoid(adv_private_logits) )
                 # discriminator's loss
                 D_loss = loss_discr_true + loss_discr_fake
             else:
                 loss_discr_true = tf.reduce_mean(tf.keras.losses.binary_crossentropy(tf.ones_like(adv_public_logits), adv_public_logits, from_logits=True))
-                # alice is false
                 loss_discr_fake = tf.reduce_mean(tf.keras.losses.binary_crossentropy(tf.zeros_like(adv_private_logits), adv_private_logits, from_logits=True))
                 # discriminator's loss
                 D_loss = (loss_discr_true + loss_discr_fake) / 2
@@ -263,23 +259,20 @@ class FSHA_binary_property(FSHA):
                 D_loss += D_gradient_penalty * w
 
             ##################################################################
-            ## attack verification #####################
+            ## attack validation #####################
             private_classification_accuracy = binary_accuracy(label_private, clss_private_logits)
             ############################################
             ##################################################################
 
 
-        # train attacker's decoder on public data
         var = self.f.trainable_variables
         gradients = tape.gradient(f_loss, var)
         self.optimizer0.apply_gradients(zip(gradients, var))
 
-        # train attacker's autoencoder on public data
         var = self.tilde_f.trainable_variables + self.decoder.trainable_variables
         gradients = tape.gradient(tilde_f_loss, var)
         self.optimizer1.apply_gradients(zip(gradients, var))
 
-        # desc_train
         var = self.D.trainable_variables
         gradients = tape.gradient(D_loss, var)
         self.optimizer2.apply_gradients(zip(gradients, var))
