@@ -22,10 +22,10 @@ We report a set of *jupyter notebooks* that act as brief tutorial for the code a
 
 ## Cite our work:
 to be uploaded.
-> @InProceedings{unleashingthetiger,
-> author="Pasquini, Dario and Ateniese, Giuseppe and Bernaschi, Massimo",
-> title="Unleashing the Tiger: Inference Attacks on Split Learning",
-> year="2020",
+> @InProceedings{unleashingthetiger,<br>
+> author="Pasquini, Dario and Ateniese, Giuseppe and Bernaschi, Massimo",<br>
+> title="Unleashing the Tiger: Inference Attacks on Split Learning",<br>
+> year="2020",<br>
 > }
 
 
