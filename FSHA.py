@@ -63,7 +63,7 @@ class FSHA:
             #### SERVER-SIDE:
             # map to data space (for evaluation and style loss)
             rec_x_private = self.decoder(z_private)
-            ## adversarial loss (f's output must similar to \tilde{f}'s output):
+            ## adversarial loss (f's output must similar be to \tilde{f}'s output):
             adv_private_logits = self.D(z_private)
             if self.hparams['WGAN']:
                 print("Use WGAN loss")
@@ -221,7 +221,7 @@ class FSHA_binary_property(FSHA):
             #### SERVER-SIDE:
             # map to data space (for evaluation and style loss)
             clss_private_logits = self.decoder(z_private)
-            ## adversarial loss (f's output must similar to \tilde{f}'s output):
+            ## adversarial loss (f's output must be similar to \tilde{f}'s output):
             adv_private_logits = self.D(z_private)
             if self.hparams['WGAN']:
                 print("Use WGAN loss")
