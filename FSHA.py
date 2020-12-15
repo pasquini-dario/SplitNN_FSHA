@@ -67,7 +67,7 @@ class FSHA:
             adv_private_logits = self.D(z_private)
             if self.hparams['WGAN']:
                 print("Use WGAN loss")
-                f_loss = tf.reduce_mean( tf.nn.sigmoid(adv_private_logits) )
+                f_loss = tf.reduce_mean(adv_private_logits)
             else:
                 f_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(tf.ones_like(adv_private_logits), adv_private_logits, from_logits=True))
             ##
@@ -96,8 +96,8 @@ class FSHA:
             # discriminator on attacker's feature-space
             adv_public_logits = self.D(z_public)
             if self.hparams['WGAN']:
-                loss_discr_true = tf.reduce_mean( tf.nn.sigmoid(adv_public_logits) )
-                loss_discr_fake = -tf.reduce_mean( tf.nn.sigmoid(adv_private_logits) )
+                loss_discr_true = tf.reduce_mean( adv_public_logits )
+                loss_discr_fake = -tf.reduce_mean( adv_private_logits)
                 # discriminator's loss
                 D_loss = loss_discr_true + loss_discr_fake
             else:
@@ -225,7 +225,7 @@ class FSHA_binary_property(FSHA):
             adv_private_logits = self.D(z_private)
             if self.hparams['WGAN']:
                 print("Use WGAN loss")
-                f_loss = tf.reduce_mean( tf.nn.sigmoid(adv_private_logits) )
+                f_loss = tf.reduce_mean(adv_private_logits)
             else:
                 f_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(tf.ones_like(adv_private_logits), adv_private_logits, from_logits=True))
             ##
@@ -242,8 +242,8 @@ class FSHA_binary_property(FSHA):
             # discriminator on attacker's feature-space
             adv_public_logits = self.D(z_public)
             if self.hparams['WGAN']:
-                loss_discr_true = tf.reduce_mean( tf.nn.sigmoid(adv_public_logits) )
-                loss_discr_fake = -tf.reduce_mean( tf.nn.sigmoid(adv_private_logits) )
+                loss_discr_true = tf.reduce_mean(adv_public_logits)
+                loss_discr_fake = -tf.reduce_mean(adv_private_logits)
                 # discriminator's loss
                 D_loss = loss_discr_true + loss_discr_fake
             else:
