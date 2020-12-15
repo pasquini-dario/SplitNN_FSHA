@@ -3,13 +3,21 @@ import numpy as np
 
 
 #------------------------------------------------------------------------------------
-def ResBlock(inputs, dim, ks=3, activation='relu'):
+def ResBlock(inputs, dim, ks=3, with_batch_norm=True, activation='relu'):
     x = inputs
-    x = tf.keras.layers.Activation(activation)(x)
-    x = tf.keras.layers.Conv2D(dim, ks, padding='same')(x)        
+    
+    if with_batch_norm:
+        x = tf.keras.layers.BatchNormalization()(x)
+        
     x = tf.keras.layers.Activation(activation)(x)
     x = tf.keras.layers.Conv2D(dim, ks, padding='same')(x)
-    return inputs + (0.3*x)
+    
+    if with_batch_norm:
+        x = tf.keras.layers.BatchNormalization()(x)
+        
+    x = tf.keras.layers.Activation(activation)(x)
+    x = tf.keras.layers.Conv2D(dim, ks, padding='same')(x)
+    return inputs + x
 #------------------------------------------------------------------------------------
 
 def f0(input_shape):
