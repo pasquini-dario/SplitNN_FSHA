@@ -37,6 +37,25 @@ def f1(input_shape):
     x = tf.keras.layers.Conv2D(256, 3, 2, padding='same', activation="relu")(x)
     return tf.keras.Model(xin, x)
 
+#------ more realistic setup
+def f2(input_shape):
+    xin = tf.keras.layers.Input(input_shape)
+    x = tf.keras.layers.Conv2D(64, 3, 2, padding='same')(xin)
+    x = ResBlock(x, 64)
+    x = tf.keras.layers.Conv2D(128, 3, 2, padding='same', activation="relu")(x)
+    x = ResBlock(x, 128)
+    x = tf.keras.layers.Conv2D(256, 3, 2, padding='same', activation="relu")(x)
+    x = ResBlock(x, 256)
+    return tf.keras.Model(xin, x)
+
+def f3(input_shape):
+    xin = tf.keras.layers.Input(input_shape)
+    x = tf.keras.layers.Conv2D(128, 3, 2, padding='same', activation="swish")(xin)
+    x = tf.keras.layers.Conv2D(256, 3, 2, padding='same', activation="swish")(x)
+    x = tf.keras.layers.Conv2D(256, 3, 2, padding='same')(x)
+    return tf.keras.Model(xin, x)
+#---------------------------------------------------------------------------------
+
 def decoder0(input_shape, channels):
     xin = tf.keras.layers.Input(input_shape)
     x = tf.keras.layers.Conv2DTranspose(256, 3, 2, padding='same', activation="relu")(xin)
@@ -69,4 +88,5 @@ def C0(input_shape=None, channels=None):
 SETUPS = [
     [f0, f1, decoder0, D0],
     [f0, f1, C0, D0],
+    [f2, f3, decoder0, D0],
 ]
