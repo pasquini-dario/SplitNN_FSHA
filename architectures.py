@@ -3,7 +3,7 @@ import numpy as np
 
 
 #------------------------------------------------------------------------------------
-def ResBlock(inputs, dim, ks=3, with_batch_norm=True, activation='relu'):
+def ResBlock(inputs, dim, ks=3, with_batch_norm=False, activation='relu'):
     x = inputs
     
     if with_batch_norm:
