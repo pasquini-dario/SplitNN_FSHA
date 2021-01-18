@@ -15,12 +15,13 @@ In particular:
 * *styleloss.py*: It implements the style loss based on a MobileNet trained on *ImageNet*.
 * *datasets.py*: It contains utility to load and parse datasets.
 
-## Proof Of Concept 🐯:
+## Proof Of Concepts 🐯:
 
 We report a set of *jupyter notebooks* that act as brief tutorial for the code and replicate the experiments in the paper. Those are:
 
 * *FSHA.ipynb*: It implements the standard Feature-space hijacking attack on the MNIST dataset.
 * *FSHA_mangled.ipynb*: It implements the Feature-space hijacking attack on the MNIST dataset, when the attacker's training set is mangled of a class.
+* *ClientSideAttack/clientsideAttack.ipynb: It implements the GAN-based, client-side attack in split learning.
 * Work in progress.....
 
 ## Cite our work:
