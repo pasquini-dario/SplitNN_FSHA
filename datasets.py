@@ -2,9 +2,7 @@ import tensorflow as tf
 import numpy as np
 import tqdm
 import sklearn
-from sklearn import model_selection
 import matplotlib.pyplot as plt
-from skimage.transform import resize
 
 BUFFER_SIZE = 10000
 SIZE = 32
@@ -15,6 +13,11 @@ def parse(x):
     x = x[:,:,None]
     x = tf.tile(x, (1,1,3))    
     x = tf.image.resize(x, (SIZE, SIZE))
+    x = x / (255/2) - 1
+    x = tf.clip_by_value(x, -1., 1.)
+    return x
+
+def parseC(x):
     x = x / (255/2) - 1
     x = tf.clip_by_value(x, -1., 1.)
     return x
@@ -40,6 +43,7 @@ def load_mnist():
     return xpriv, xpub
 
 
+
 def load_mnist_mangled(class_to_remove):
     mnist = tf.keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -49,13 +53,41 @@ def load_mnist_mangled(class_to_remove):
     # remove class from Xpub
     (x_test, y_test), _ = remove_class(x_test, y_test, class_to_remove)
     # for evaluation
-    _, (x_removed_examples, y_removed_examples) = remove_class(x_train, y_train, class_to_remove)
+    (x_train_seen, y_train_seen), (x_removed_examples, y_removed_examples) = remove_class(x_train, y_train, class_to_remove)
     
     xpriv = make_dataset(x_train, y_train, parse)
     xpub = make_dataset(x_test, y_test, parse)
     xremoved_examples = make_dataset(x_removed_examples, y_removed_examples, parse)
     
-    return xpriv, xpub, xremoved_examples
+    xpriv_other = make_dataset(x_train_seen, y_train_seen, parse)
+    
+    return xpriv, xpub, xremoved_examples, xpriv_other
+
+
+def load_omniglit():
+    
+    def parseImg(X):
+        X = tf.cast(X, tf.float32)
+        X = X / (255/2) - 1
+        X = tf.abs(X-1)
+        X = tf.image.resize(X, (32, 32))
+        X = tfds.as_numpy(X)
+        return X
+
+
+    DD = 'Omniglot'
+    pp = lambda X: np.array([parseImg(x['image']) for x in X.take(-1)])    
+    train = tfds.load(DD, split='train', shuffle_files=True)
+    test = tfds.load(DD, split='test', shuffle_files=True)
+    x_train = pp(train)
+    x_test = pp(test)
+    
+    
+    y_train = np.ones(len(x_train))
+    y_test = np.ones(len(x_test))
+    
+    
+    return x_train, y_train, x_test, y_test 
 
 
 def load_fashion_mnist():
