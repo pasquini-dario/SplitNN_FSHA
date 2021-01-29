@@ -11,7 +11,7 @@ In particular:
 
 *  *FSHA.py*: It implements the attack and a single-user version of split learning. The class *FSHA_binary_property* in the file implements the property-inference attack.
 * *architectures.py*: It contains the main network architectures we used in the paper.
-* *styleloss.py*: It implements the style loss based on a MobileNet trained on *ImageNet*.
+* *defense.py*: It implements the distance correlation.
 * *datasets.py*: It contains utility to load and parse datasets.
 
 ## Proof Of Concepts 🐯:
