@@ -26,7 +26,7 @@ We report a set of *jupyter notebooks* that act as brief tutorial for the code a
 
 ## Cite our work:
 ```
-@misc{pasquini2020unleashing, <br>
+@misc{pasquini2020unleashing,
       title={Unleashing the Tiger: Inference Attacks on Split Learning},
       author={Dario Pasquini and Giuseppe Ateniese and Massimo Bernaschi}, 
       year={2020},
