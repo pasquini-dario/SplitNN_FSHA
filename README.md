@@ -25,14 +25,13 @@ We report a set of *jupyter notebooks* that act as brief tutorial for the code a
 * Work in progress.....
 
 ## Cite our work:
->@misc{pasquini2020unleashing, <br>
->      title={Unleashing the Tiger: Inference Attacks on Split Learning}, <br>
->      author={Dario Pasquini and Giuseppe Ateniese and Massimo Bernaschi}, <br>
->      year={2020},<br>
->      eprint={2012.02670},<br>
->      archivePrefix={arXiv},<br>
->      primaryClass={cs.CR}<br>
->}
-
-
-
+```
+@misc{pasquini2020unleashing, <br>
+      title={Unleashing the Tiger: Inference Attacks on Split Learning},
+      author={Dario Pasquini and Giuseppe Ateniese and Massimo Bernaschi}, 
+      year={2020},
+      eprint={2012.02670},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR}
+}
+```
