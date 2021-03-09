@@ -65,32 +65,6 @@ def load_mnist_mangled(class_to_remove):
     return xpriv, xpub, xremoved_examples, xpriv_other
 
 
-def load_omniglot():
-    
-    def parseImg(X):
-        X = tf.cast(X, tf.float32)
-        X = X / (255/2) - 1
-        X = tf.abs(X-1)
-        X = tf.image.resize(X, (32, 32))
-        X = tfds.as_numpy(X)
-        return X
-
-
-    DD = 'Omniglot'
-    pp = lambda X: np.array([parseImg(x['image']) for x in X.take(-1)])    
-    train = tfds.load(DD, split='train', shuffle_files=True)
-    test = tfds.load(DD, split='test', shuffle_files=True)
-    x_train = pp(train)
-    x_test = pp(test)
-    
-    
-    y_train = np.ones(len(x_train))
-    y_test = np.ones(len(x_test))
-    
-    
-    return x_train, y_train, x_test, y_test 
-
-
 def load_fashion_mnist():
     mnist = tf.keras.datasets.fashion_mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
