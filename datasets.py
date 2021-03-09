@@ -3,6 +3,7 @@ import numpy as np
 import tqdm
 import sklearn
 import matplotlib.pyplot as plt
+import tensorflow_datasets as tfds
 
 BUFFER_SIZE = 10000
 SIZE = 32
@@ -64,7 +65,7 @@ def load_mnist_mangled(class_to_remove):
     return xpriv, xpub, xremoved_examples, xpriv_other
 
 
-def load_omniglit():
+def load_omniglot():
     
     def parseImg(X):
         X = tf.cast(X, tf.float32)
