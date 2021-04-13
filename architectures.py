@@ -56,20 +56,25 @@ def resnet(input_shape, level):
         
 def pilot(input_shape, level):
     xin = tf.keras.layers.Input(input_shape)
-
-    x = tf.keras.layers.Conv2D(64, 3, 2, padding='same', activation="swish")(xin)
+    
+    act = None
+    #act = 'swish'
+    
+    print("[PILOT] activation: ", act)
+    
+    x = tf.keras.layers.Conv2D(64, 3, 2, padding='same', activation=act)(xin)
     
     if level == 1:
         x = tf.keras.layers.Conv2D(64, 3, 1, padding='same')(x)
         return tf.keras.Model(xin, x)
     
-    x = tf.keras.layers.Conv2D(128, 3, 2, padding='same', activation="swish")(x)
+    x = tf.keras.layers.Conv2D(128, 3, 2, padding='same', activation=act)(x)
     
     if level <= 3:
         x = tf.keras.layers.Conv2D(128, 3, 1, padding='same')(x)
         return tf.keras.Model(xin, x)
 
-    x = tf.keras.layers.Conv2D(256, 3, 2, padding='same', activation="swish")(x)
+    x = tf.keras.layers.Conv2D(256, 3, 2, padding='same', activation=act)(x)
             
     if level <= 4:
         x = tf.keras.layers.Conv2D(256, 3, 1, padding='same')(x)
@@ -81,13 +86,18 @@ def pilot(input_shape, level):
 def decoder(input_shape, level, channels=3):
     xin = tf.keras.layers.Input(input_shape)
     
-    x = tf.keras.layers.Conv2DTranspose(256, 3, 2, padding='same', activation="relu")(xin)
+    #act = "relu"
+    act = None
+    
+    print("[DECODER] activation: ", act)
+
+    x = tf.keras.layers.Conv2DTranspose(256, 3, 2, padding='same', activation=act)(xin)
     
     if level == 1:
         x = tf.keras.layers.Conv2D(channels, 3, 1, padding='same', activation="tanh")(x)
         return tf.keras.Model(xin, x)
     
-    x = tf.keras.layers.Conv2DTranspose(128, 3, 2, padding='same', activation="relu")(x)
+    x = tf.keras.layers.Conv2DTranspose(128, 3, 2, padding='same', activation=act)(x)
     
     if level <= 3:
         x = tf.keras.layers.Conv2D(channels, 3, 1, padding='same', activation="tanh")(x)
