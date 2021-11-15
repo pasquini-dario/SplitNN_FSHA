@@ -27,12 +27,20 @@ We report a set of *jupyter notebooks* that act as brief tutorial for the code a
 
 ## Cite our work:
 ```
-@misc{pasquini2020unleashing,
-      title={Unleashing the Tiger: Inference Attacks on Split Learning},
-      author={Dario Pasquini and Giuseppe Ateniese and Massimo Bernaschi}, 
-      year={2020},
-      eprint={2012.02670},
-      archivePrefix={arXiv},
-      primaryClass={cs.CR}
+@inproceedings{10.1145/3460120.3485259,
+      author = {Pasquini, Dario and Ateniese, Giuseppe and Bernaschi, Massimo},
+      title = {Unleashing the Tiger: Inference Attacks on Split Learning},
+      year = {2021},
+      isbn = {9781450384544},
+      publisher = {Association for Computing Machinery},
+      address = {New York, NY, USA},
+      url = {https://doi.org/10.1145/3460120.3485259},
+      doi = {10.1145/3460120.3485259},
+      booktitle = {Proceedings of the 2021 ACM SIGSAC Conference on Computer and Communications Security},
+      pages = {2113–2129},
+      numpages = {17},
+      keywords = {ML security, deep learning, collaborative learning},
+      location = {Virtual Event, Republic of Korea},
+      series = {CCS '21}
 }
 ```
